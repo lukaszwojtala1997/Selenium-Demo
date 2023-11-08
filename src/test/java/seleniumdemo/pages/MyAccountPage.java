@@ -1,9 +1,10 @@
-package pl.seleniumdemo.pages;
+package seleniumdemo.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import seleniumdemo.utils.SeleniumHelper;
 
 public class MyAccountPage {
 
@@ -28,6 +29,8 @@ public class MyAccountPage {
 
     @FindBy(name = "login")
     private WebElement loginButton;
+
+
 
     WebDriver driver;
 
@@ -71,6 +74,11 @@ public class MyAccountPage {
     }
 
     public WebElement getError() {
+        SeleniumHelper.waitForElementToBeVisible(driver, error);
         return error;
+    }
+
+    public boolean isButtonAvailable() {
+        return registerButton.isEnabled();
     }
 }
