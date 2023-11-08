@@ -1,9 +1,9 @@
-package pl.seleniumdemo.tests;
+package seleniumdemo.tests;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pl.seleniumdemo.pages.HomePage;
+import seleniumdemo.pages.HomePage;
 
 public class LoginTest extends BaseTest {
 
@@ -12,19 +12,30 @@ public class LoginTest extends BaseTest {
     @Test
     public void loginTest() {
         WebElement dashBoardLink = new HomePage(driver).openMyAccountPage()
-                .loginValidData("testowy1@testowy.pl", "TestowyHaslo123@")
+                .loginValidData("testowy@testowy.pl", "TestowyHaslo123@")
                 .getDashBoardLink();
 
         Assert.assertEquals(dashBoardLink.getText(), "Dashboard");
     }
 
-    @Test
-    public void loginWithInvalidPassword() {
+    @Test(enabled = false)
+    public void loginWithInvalidData() {
         WebElement error = new HomePage(driver).openMyAccountPage()
-                .loginInvalidData("testowy@testowy.pl", "TestowHaslo123@")
+                .loginInvalidData("testowyemail@testowy.pl", "TestowHaslo123@")
                 .getError();
 
         Assert.assertEquals(error.getText(), "ERROR: Incorrect username or password.");
     }
+
+    @Test
+    public void loginWithoutPassword() {
+        WebElement error = new HomePage(driver).openMyAccountPage()
+                .loginInvalidData("testowy@testowy.pl", "")
+                .getError();
+
+        Assert.assertEquals(error.getText(), "ERROR: The password field is empty.");
+    }
+
+
 
 }

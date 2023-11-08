@@ -1,9 +1,9 @@
-package pl.seleniumdemo.tests;
+package seleniumdemo.tests;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pl.seleniumdemo.pages.HomePage;
+import seleniumdemo.pages.HomePage;
 
 public class RegisterTest extends BaseTest {
 
@@ -25,6 +25,26 @@ public class RegisterTest extends BaseTest {
                 .getError();
 
         Assert.assertEquals(error.getText(), "Error: An account is already registered with your email address. Please log in.");
+    }
+
+    @Test
+    public void registerUserWithoutPasswordTest() {
+        int random = (int) (Math.random() * 1000);
+
+        WebElement error = new HomePage(driver).openMyAccountPage()
+                .registerUserInvalidData("testowy" + random + "@testowy.pl", "")
+                .getError();
+
+        Assert.assertEquals(error.getText(), "Error: Please enter an account password.");
+    }
+
+    @Test
+    public void registerUserWithToShortPasswordTest() {
+        boolean button = new HomePage(driver).openMyAccountPage()
+                .registerUserInvalidData("testowy@testowy.pl", "abc2")
+                .isButtonAvailable();
+
+        Assert.assertFalse(button);
     }
 
 }
