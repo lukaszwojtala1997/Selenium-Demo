@@ -1,8 +1,6 @@
 package seleniumdemo.pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import seleniumdemo.utils.SeleniumHelper;
@@ -12,8 +10,8 @@ import java.util.List;
 
 public class CartPage {
 
-    @FindBy(xpath = "//a[@class='checkout-button button alt wc-forward']")
-    private WebElement proccedToCheckoutButton;
+    @FindBy(css = ".checkout-button")
+    private WebElement proceedToCheckoutButton;
 
     @FindBy(xpath = "//span[@class='woocommerce-Price-amount amount']")
     private WebElement price;
@@ -40,8 +38,13 @@ public class CartPage {
     }
 
     public AddressDetailsPage openAddressDetails(){
-        SeleniumHelper.waitForClickable(proccedToCheckoutButton, driver);
-        proccedToCheckoutButton.click();
+        SeleniumHelper.waitForClickable(proceedToCheckoutButton, driver);
+        try {
+            driver.findElement(By.cssSelector(".checkout-button")).click();
+        } catch (Exception e) {
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", driver.findElement(By.cssSelector(".checkout-button")));
+        }
         return new AddressDetailsPage(driver);
     }
 
@@ -86,7 +89,7 @@ public class CartPage {
     public String getErrors() {
 
 
-        List<String> strings = new ArrayList<String>();
+        List<String> strings = new ArrayList<>();
         for(WebElement e : totalPrice){
             strings.add(e.getText());
         }

@@ -5,8 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import seleniumdemo.utils.SeleniumHelper;
 
+import java.time.Duration;
 import java.util.List;
 
 public class ProductShopPage {
@@ -23,6 +26,9 @@ public class ProductShopPage {
     @FindBy(xpath = "//a[@class='czr-title']")
     private WebElement product;
 
+    @FindBy(css = "[class='woocommerce-loop-product__title']")
+    private WebElement productNameButton;
+
     public WebDriver driver;
 
     public ProductShopPage(WebDriver driver) {
@@ -30,30 +36,27 @@ public class ProductShopPage {
         this.driver = driver;
     }
 
-    public ProductPage openProduct(String title){
-        driver.findElement(By.xpath("//h2[text()='" + title + "']")).click();
+    public ProductPage openProduct(){
+        productNameButton.click();
         return new ProductPage(driver);
     }
 
-    public ProductShopPage addToCartProduct() throws InterruptedException {
+    public ProductShopPage addToCartProduct() {
         addToCart.get(2).click();
-        Thread.sleep(3000);
         return this;
 
     }
 
-    public CartPage checkCart() throws InterruptedException {
+    public CartPage checkCart(){
         cart.click();
         SeleniumHelper.waitForClickable(viewCart, driver);
         viewCart.click();
-        Thread.sleep(3000);
         return new CartPage(driver);
 
     }
 
-    public ProductPage confirmProduct() throws InterruptedException {
+    public ProductPage confirmProduct() {
         product.click();
-        Thread.sleep(5000);
         return new ProductPage(driver);
     }
 
