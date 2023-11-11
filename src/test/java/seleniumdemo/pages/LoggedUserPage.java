@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import seleniumdemo.utils.SeleniumHelper;
 
 public class LoggedUserPage {
 
@@ -17,9 +18,12 @@ public class LoggedUserPage {
         this.driver = driver;
     }
 
-    public WebElement getDashBoardLink() {
-        return dashBoardLink;
+    public String getDashBoardLink() {
+        SeleniumHelper.waitForElementToBeVisible(driver, dashBoardLink);
+        return dashBoardLink.getText();
     }
+
+
 
 
 }

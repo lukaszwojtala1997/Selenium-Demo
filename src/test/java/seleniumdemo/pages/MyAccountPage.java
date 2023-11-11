@@ -1,7 +1,10 @@
 package seleniumdemo.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import seleniumdemo.utils.SeleniumHelper;
@@ -30,8 +33,6 @@ public class MyAccountPage {
     @FindBy(name = "login")
     private WebElement loginButton;
 
-
-
     WebDriver driver;
 
     public MyAccountPage(WebDriver driver) {
@@ -41,13 +42,27 @@ public class MyAccountPage {
     }
 
 
-    public LoggedUserPage registerUserValidData(String email, String password) {
+    public RegisterUserPage registerUserValidData(String email, String password) {
         registerUser(email, password);
-        return new LoggedUserPage(driver);
+        SeleniumHelper.waitForClickable(registerButton, driver);
+        /*
+        try {
+            driver.findElement(By.name("register")).click();
+        } catch (Exception e) {
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", driver.findElement(By.name("register")));
+            executor.executeScript("arguments[0].click();", driver.findElement(By.name("register")));
+        }
+
+         */
+        registerButton.click();
+//        registerButton.click();
+        return new RegisterUserPage(driver);
     }
 
     public MyAccountPage registerUserInvalidData(String email, String password) {
         registerUser(email, password);
+        registerButton.click();
         return this;
     }
 
@@ -70,15 +85,15 @@ public class MyAccountPage {
     public void registerUser(String email, String password) {
         regEmailInput.sendKeys(email);
         regPasswordInput.sendKeys(password);
-        registerButton.click();
     }
 
-    public WebElement getError() {
+    public String getError() {
         SeleniumHelper.waitForElementToBeVisible(driver, error);
-        return error;
+        return error.getText();
     }
 
-    public boolean isButtonAvailable() {
-        return registerButton.isEnabled();
+    public MyAccountPage isButtonAvailable() {
+        registerButton.click();
+        return this;
     }
 }

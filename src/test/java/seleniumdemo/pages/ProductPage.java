@@ -9,11 +9,17 @@ import seleniumdemo.utils.SeleniumHelper;
 
 public class ProductPage {
 
-    @FindBy(name = "add-to-cart")
+    @FindBy(css = "[class='button product_type_simple add_to_cart_button ajax_add_to_cart']")
     private WebElement addToCartButton;
 
-    @FindBy(xpath = "//div[@class='woocommerce-message']//a[text()='View cart']")
+    @FindBy(css = "[class='single_add_to_cart_button button alt']")
+    private WebElement addToCart2Button;
+
+    @FindBy(css = "[class='added_to_cart wc-forward']")
     private WebElement viewCartButton;
+
+    @FindBy(css = "[class='woocart cart-contents']")
+    private WebElement viewCart2Button;
 
     @FindBy(xpath = "//input[@class='input-text qty text']")
     private WebElement quantityInput;
@@ -31,9 +37,16 @@ public class ProductPage {
         return this;
     }
 
+    public ProductPage addProductToCart2(){
+        SeleniumHelper.waitForClickable(addToCart2Button, driver);
+        addToCart2Button.click();
+        return this;
+    }
+
     public CartPage viewCart() {
-        SeleniumHelper.waitForClickable(viewCartButton, driver);
-        viewCartButton.click();
+        SeleniumHelper.waitForClickable(viewCart2Button, driver);
+        viewCart2Button.click();
+        viewCart2Button.click();
         return new CartPage(driver);
     }
 
