@@ -48,6 +48,7 @@ public class ProductShopPage {
     }
 
     public CartPage checkCart(){
+        SeleniumHelper.waitForClickable(cart, driver);
         cart.click();
         SeleniumHelper.waitForClickable(viewCart, driver);
         viewCart.click();
