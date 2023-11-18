@@ -49,7 +49,7 @@ public class CheckoutTest extends BaseTest {
         OrderDetailsPage orderDetailsPage = new HomePage(driver)
                 .openShopPage()
                 .openProduct()
-                .addProductToCart3()
+                .addProductToCartFromCatalog()
                 .viewCart()
                 .openAddressDetails()
                 .fillAddressDetails(customer);
@@ -71,8 +71,8 @@ public class CheckoutTest extends BaseTest {
         CartPage orderDetailsPage = new HomePage(driver)
                 .openShopPage()
                 .openProduct()
-                .addProductToCart2()
-                .addProductToCart2()
+                .addProductToCartFromCatalog()
+                .addProductToCartFromCatalog()
                 .viewCart()
                 .returnToHomePage()
                 .cartPage();
@@ -97,7 +97,7 @@ public class CheckoutTest extends BaseTest {
         CartPage orderDetailsPage = new HomePage(driver)
                 .openShopPage()
                 .openProduct()
-                .addProductToCart2()
+                .addProductToCartFromCatalog()
                 .viewCart()
                 .addQuantity("4")
                 .clickShop()
