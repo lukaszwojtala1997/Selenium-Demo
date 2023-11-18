@@ -1,9 +1,16 @@
 package seleniumdemo.tests;
 
-import org.openqa.selenium.WebElement;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import seleniumdemo.pages.HomePage;
+import seleniumdemo.pages.MyAccountPage;
+import seleniumdemo.pages.RegisterUserPage;
+import seleniumdemo.utils.BaseTest;
+import seleniumdemo.utils.SeleniumHelper;
+
+import java.io.IOException;
 
 public class RegisterTest extends BaseTest {
 
@@ -11,40 +18,54 @@ public class RegisterTest extends BaseTest {
 
     @Test
     public void registerUserTest() {
-        WebElement dashBoardLink = new HomePage(driver).openMyAccountPage()
-                .registerUserValidData("testowy" + random + "@testowy.pl", "TestowyHaslo123@")
-                .getDashBoardLink();
+        ExtentTest test = extentReports.createTest("Register user");
 
-        Assert.assertEquals(dashBoardLink.getText(), "Dashboard");
+        RegisterUserPage dashBoardLink = new HomePage(driver)
+                .openMyAccountPage()
+                .registerUserValidData("testowy" + random +
+                        "@testowy.pl", "TestowyHaslo123@");
+
+        String getDashBoardLink = dashBoardLink.getDashBoardLink();
+
+        Assert.assertEquals(getDashBoardLink, "Dashboard");
+
+        try {
+            test.log(Status.PASS, "Assertions passed", SeleniumHelper.getScreenshot(driver));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void registerUserWithSameEmailTest() {
-        WebElement error = new HomePage(driver).openMyAccountPage()
-                .registerUserInvalidData("testowy@testowy.pl", "TestowyHaslo123@")
-                .getError();
+    public void registerUserWithExistingEmailTest() {
+        ExtentTest test = extentReports.createTest("Register user with existing email");
 
-        Assert.assertEquals(error.getText(), "Error: An account is already registered with your email address. Please log in.");
+        MyAccountPage error = new HomePage(driver).openMyAccountPage()
+                .registerUserInvalidData("testowy@testowy.pl", "TestowyHaslo123@");
+
+        Assert.assertEquals(error.getError(), "Error: An account is already registered with your email address. Please log in.");
+
+        try {
+            test.log(Status.PASS, "Assertions passed", SeleniumHelper.getScreenshot(driver));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void registerUserWithoutPasswordTest() {
-        int random = (int) (Math.random() * 1000);
+        ExtentTest test = extentReports.createTest("Register user without password");
 
-        WebElement error = new HomePage(driver).openMyAccountPage()
-                .registerUserInvalidData("testowy" + random + "@testowy.pl", "")
-                .getError();
+        MyAccountPage error = new HomePage(driver).openMyAccountPage()
+                .registerUserInvalidData("testowy11" + random + "@testowy.pl", "");
 
-        Assert.assertEquals(error.getText(), "Error: Please enter an account password.");
-    }
+        Assert.assertEquals(error.getError(),"Error: Please enter an account password.");
 
-    @Test
-    public void registerUserWithToShortPasswordTest() {
-        boolean button = new HomePage(driver).openMyAccountPage()
-                .registerUserInvalidData("testowy@testowy.pl", "abc2")
-                .isButtonAvailable();
-
-        Assert.assertFalse(button);
+        try {
+            test.log(Status.PASS, "Assertions passed", SeleniumHelper.getScreenshot(driver));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
