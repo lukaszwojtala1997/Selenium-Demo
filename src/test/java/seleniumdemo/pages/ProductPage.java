@@ -13,7 +13,7 @@ public class ProductPage {
     private WebElement addToCartButton;
 
     @FindBy(css = "[class='single_add_to_cart_button button alt']")
-    private WebElement addToCart2Button;
+    private WebElement addToCartFromCatalogButton;
 
     @FindBy(css = "[class='added_to_cart wc-forward']")
     private WebElement viewCartButton;
@@ -37,15 +37,16 @@ public class ProductPage {
         return this;
     }
 
-    public ProductPage addProductToCart2(){
-        SeleniumHelper.waitForClickable(addToCart2Button, driver);
-        addToCart2Button.click();
+    public ProductPage addProductToCartFromCatalog(){
+        SeleniumHelper.waitForClickable(addToCartFromCatalogButton, driver);
+        addToCartFromCatalogButton.click();
         return this;
     }
 
     public CartPage viewCart() {
         SeleniumHelper.waitForClickable(viewCart2Button, driver);
         viewCart2Button.click();
+        SeleniumHelper.waitForClickable(viewCart2Button, driver);
         viewCart2Button.click();
         return new CartPage(driver);
     }
