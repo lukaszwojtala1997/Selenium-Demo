@@ -88,7 +88,7 @@ public class MyAccountPage {
     }
 
     public String getError() {
-        SeleniumHelper.waitForElementToBeVisible(driver, error);
+        SeleniumHelper.waitForElementToBeVisible(error, driver);
         return error.getText();
     }
 

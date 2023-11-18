@@ -63,7 +63,7 @@ public class AddressDetailsPage {
 
 
     public OrderDetailsPage fillAddressDetails(Customer customer) {
-        SeleniumHelper.waitForElementToBeVisible(driver, firstNameInput);
+        SeleniumHelper.waitForElementToBeVisible(firstNameInput, driver);
         firstNameInput.sendKeys(customer.getFirstName());
         lastNameInput.sendKeys(customer.getLastName());
         companyNameInput.sendKeys(customer.getCompanyName());

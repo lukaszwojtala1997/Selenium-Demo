@@ -25,7 +25,7 @@ public class OrderDetailsPage {
     }
 
     public WebElement getOrderNotice() {
-        SeleniumHelper.waitForElementToBeVisible(driver, orderNotice);
+        SeleniumHelper.waitForElementToBeVisible(orderNotice, driver);
         return orderNotice;
     }
 }

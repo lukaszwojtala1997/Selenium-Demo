@@ -9,7 +9,7 @@ import seleniumdemo.utils.SeleniumHelper;
 
 public class SearchProductPage {
 
-    @FindBy(xpath = "//input[@id='s-654c7aa3500f3']")
+    @FindBy(xpath = "//input[@id='s-65587d7f86774']")
     private WebElement searchProductInput;
 
     public WebDriver driver;
@@ -20,7 +20,7 @@ public class SearchProductPage {
     }
 
     public ProductShopPage enterProductName() {
-        SeleniumHelper.waitForElementToBeVisible(driver, searchProductInput);
+        SeleniumHelper.waitForElementToBeVisible(searchProductInput, driver);
         searchProductInput.sendKeys("Java");
         searchProductInput.sendKeys(Keys.ENTER);
         return new ProductShopPage(driver);

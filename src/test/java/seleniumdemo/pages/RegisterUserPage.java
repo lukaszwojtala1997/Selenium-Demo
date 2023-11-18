@@ -19,7 +19,7 @@ public class RegisterUserPage {
     }
 
     public String getDashBoardLink() {
-        SeleniumHelper.waitForElementToBeVisible(driver, dashBoardLink);
+        SeleniumHelper.waitForElementToBeVisible(dashBoardLink, driver);
         return dashBoardLink.getText();
     }
 }
