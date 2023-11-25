@@ -14,16 +14,16 @@ import java.util.List;
 
 public class ProductShopPage {
 
-    @FindBy(xpath = "//a[@class='button product_type_simple add_to_cart_button ajax_add_to_cart']")
+    @FindBy(css = "[class='button product_type_simple add_to_cart_button ajax_add_to_cart']")
     private List<WebElement> addToCart;
 
-    @FindBy(xpath = "//a[@class='woocart cart-contents']")
+    @FindBy(css = "[class='woocart cart-contents']")
     private WebElement cart;
 
-    @FindBy(xpath = "//a[@class='button wc-forward']")
+    @FindBy(css = "[class='button wc-forward']")
     private WebElement viewCart;
 
-    @FindBy(xpath = "//a[@class='czr-title']")
+    @FindBy(css = "[class='czr-title']")
     private WebElement product;
 
     @FindBy(css = "[class='woocommerce-loop-product__title']")

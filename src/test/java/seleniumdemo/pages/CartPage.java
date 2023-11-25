@@ -13,13 +13,13 @@ public class CartPage {
     @FindBy(css = ".checkout-button")
     private WebElement proceedToCheckoutButton;
 
-    @FindBy(xpath = "//span[@class='woocommerce-Price-amount amount']")
+    @FindBy(css = "[class='woocommerce-Price-amount amount']")
     private WebElement price;
 
-    @FindBy(xpath = "//input[@class='input-text qty text']")
+    @FindBy(css = "[class='input-text qty text']")
     private WebElement quantity;
 
-    @FindBy(xpath = "//a[@class='navbar-brand-sitename  czr-underline']")
+    @FindBy(css = "[class='navbar-brand-sitename  czr-underline']")
     private WebElement returnToHome;
 
     @FindBy(xpath = "//span[@class='woocommerce-Price-amount amount']")
@@ -70,21 +70,6 @@ public class CartPage {
         returnToHome.click();
         return new HomePage(driver);
     }
-
-/*
-    public String getErrors() {
-
-        String priceCheck = totalPrice.stream()
-                .map(WebElement::getText)
-                .filter(s -> s.length() >7)
-                .sorted(Comparator.comparingInt(String::length))
-                .sorted(Comparator.reverseOrder())
-                .findFirst()
-                .orElse("Price is null");
-        return priceCheck;
-    }
-
- */
 
     public String getErrors() {
 

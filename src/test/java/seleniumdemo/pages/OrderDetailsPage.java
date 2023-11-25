@@ -8,7 +8,7 @@ import seleniumdemo.utils.SeleniumHelper;
 
 public class OrderDetailsPage {
 
-    @FindBy(xpath = "//div[@class='woocommerce-order']//p")
+    @FindBy(css = "[class='woocommerce-order']//p")
     private WebElement orderNotice;
 
     @FindBy(xpath = "//td[contains(@class,'product-name')]")

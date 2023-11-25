@@ -13,10 +13,10 @@ public class HomePage {
     @FindBy(xpath = "//span[text()='Shop']")
     private WebElement shopLink;
 
-    @FindBy(xpath = "//a[@class='woocart cart-contents']")
+    @FindBy(css = "[class='woocart cart-contents']")
     private WebElement cart;
 
-    @FindBy(xpath = "//a[@class='search-toggle_btn icn-search czr-overlay-toggle_btn']")
+    @FindBy(css = "[class='search-toggle_btn icn-search czr-overlay-toggle_btn']")
     private WebElement searchButton;
 
     private WebDriver driver;

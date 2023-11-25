@@ -9,7 +9,7 @@ import seleniumdemo.utils.SeleniumHelper;
 
 public class SearchProductPage {
 
-    @FindBy(xpath = "//input[@id='s-65587d7f86774']")
+    @FindBy(name = "s")
     private WebElement searchProductInput;
 
     public WebDriver driver;
